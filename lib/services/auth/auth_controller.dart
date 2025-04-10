@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lmb_online/models/auth/login_model.dart';
+import 'package:lmb_online/services/endpoint.dart';
 
 class AuthController {
   final Dio _dio = Dio();
 
-  final _baseUrl = "http://apioperasi.bigiip.com";
-
   Future<AuthModel> login(String username, String password) async {
-    final String url = "$_baseUrl/api_login/login";
+    final String url = "${Endpoints.baseUrl}/operasi/login";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 
@@ -29,6 +28,8 @@ class AuthController {
         data: formData,
         options: Options(headers: headers),
       );
+
+      print("Response Data Auth Controller: $response");
 
       // Ambil response dari API
       final responseData = response.data;

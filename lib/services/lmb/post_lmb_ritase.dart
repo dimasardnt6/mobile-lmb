@@ -1,13 +1,11 @@
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lmb_online/models/lmb/post_lmb_ritase_model.dart';
 
 class PostLmbRitase {
   final Dio _dio = Dio();
-
-  final _baseUrl = "http://apioperasi.bigiip.com";
 
   Future<PostLmbRitaseModel> postLmbRitase(
     String id_lmb,
@@ -47,7 +45,7 @@ class PostLmbRitase {
 
     try {
       Response response = await _dio.post(
-        "$_baseUrl/lmb-online/ritase/lmb-ritase",
+        "${Endpoints.baseUrl}/lmb-online/ritase/lmb-ritase",
         data: formData,
         options: Options(headers: headers),
       );

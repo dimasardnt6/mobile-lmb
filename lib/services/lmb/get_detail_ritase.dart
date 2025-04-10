@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:lmb_online/models/lmb/detail_ritase_model.dart';
 
 class GetDetailRitase {
@@ -10,10 +10,8 @@ class GetDetailRitase {
     String id_lmb,
     String ritase,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
     final String url =
-        "$_baseUrl/operasi/reguler/detail_ritase?id_lmb=$id_lmb&ritase=$ritase";
+        "${Endpoints.baseUrl}/operasi/reguler/detail_ritase?id_lmb=$id_lmb&ritase=$ritase";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

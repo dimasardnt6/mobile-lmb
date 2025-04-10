@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:lmb_online/models/lmb/validation_model.dart';
 
 class ValidationTiket {
@@ -16,9 +17,7 @@ class ValidationTiket {
     String isTrayekValid,
     String token,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
-    final String url = "$_baseUrl/lmb-online/airport/validation";
+    final String url = "${Endpoints.baseUrl}/lmb-online/airport/validation";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

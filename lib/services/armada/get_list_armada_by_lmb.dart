@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:lmb_online/models/armada/list_armada_by_lmb_model.dart';
 
 class GetListArmadaByLmb {
@@ -10,10 +10,8 @@ class GetListArmadaByLmb {
     String id_bu,
     String tgl_awal,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
     final String url =
-        "$_baseUrl/operasi/lmb/armada-by-lmb?id_bu=$id_bu&tanggal=$tgl_awal";
+        "${Endpoints.baseUrl}/operasi/lmb/armada-by-lmb?id_bu=$id_bu&tanggal=$tgl_awal";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

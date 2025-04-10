@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
+import 'package:lmb_online/services/endpoint.dart';
 
 class LmbDriverNew {
   final Dio _dio = Dio();
@@ -10,15 +11,13 @@ class LmbDriverNew {
     String username,
     String token,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
     // tanggal
     final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String tanggal = formatter.format(now);
 
     final String url =
-        "$_baseUrl/lmb-online/dashboard/lmb-driver-new?nik=$username&tgl_awal=$tanggal";
+        "${Endpoints.baseUrl}/lmb-online/dashboard/lmb-driver-new?nik=$username&tgl_awal=$tanggal";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

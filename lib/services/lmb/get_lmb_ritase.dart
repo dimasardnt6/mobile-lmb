@@ -1,12 +1,10 @@
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:dio/dio.dart';
 import 'package:lmb_online/models/lmb/lmb_ritase_model.dart';
 
 class GetLmbRitase {
   final Dio _dio = Dio();
-
-  final _baseUrl = "http://apioperasi.bigiip.com";
 
   Future<LmbRitaseModel> getLmbRitase(String id_lmb, String token) async {
     String basicAuth = 'Basic ${base64Encode(utf8.encode('admin:1234'))}';
@@ -19,7 +17,7 @@ class GetLmbRitase {
 
     try {
       Response response = await _dio.get(
-        "$_baseUrl/lmb-online/ritase/lmb-ritase?id_lmb=$id_lmb",
+        "${Endpoints.baseUrl}/lmb-online/ritase/lmb-ritase?id_lmb=$id_lmb",
         options: Options(headers: headers),
       );
 

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:lmb_online/models/armada/armada_by_id_model.dart';
 
 class PutArmadaById {
@@ -11,9 +11,7 @@ class PutArmadaById {
     String id_lmb,
     String ritase,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
-    final String url = "$_baseUrl/operasi/reguler/armada-by-id";
+    final String url = "${Endpoints.baseUrl}/operasi/reguler/armada-by-id";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

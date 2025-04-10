@@ -1,13 +1,11 @@
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lmb_online/models/lmb/lmb_ritase_list_model.dart';
 
 class GetLmbRitaseList {
   final Dio _dio = Dio();
-
-  final _baseUrl = "http://apioperasi.bigiip.com";
 
   Future<LmbRitaseListModel> getLmbRitaseList(
     String id_lmb,
@@ -23,7 +21,7 @@ class GetLmbRitaseList {
 
     try {
       Response response = await _dio.get(
-        "$_baseUrl/lmb-online/ritase/lmb-ritase-list?id_lmb=$id_lmb",
+        "${Endpoints.baseUrl}/lmb-online/ritase/lmb-ritase-list?id_lmb=$id_lmb",
         options: Options(headers: headers),
       );
 

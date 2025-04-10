@@ -1,15 +1,14 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:lmb_online/models/operasi/reguler_komersil/komersil_total_model.dart';
+import 'package:lmb_online/services/endpoint.dart';
 
 class GetKomersilTotal {
   final Dio _dio = Dio();
 
   Future<KomersilTotalModel> getKomersilTotal(String id_lmb) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
     final String url =
-        "$_baseUrl/operasi/reguler/komersil_total?id_lmb=$id_lmb";
+        "${Endpoints.baseUrl}/operasi/reguler/komersil_total?id_lmb=$id_lmb";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

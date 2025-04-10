@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-
+import 'package:lmb_online/services/endpoint.dart';
 import 'package:lmb_online/models/armada/armada_by_ritase_model.dart';
 
 class PutArmadaByRitase {
@@ -12,9 +12,7 @@ class PutArmadaByRitase {
     String ritase_lama,
     String ritase_baru,
   ) async {
-    final _baseUrl = "http://apioperasi.bigiip.com";
-
-    final String url = "$_baseUrl/operasi/reguler/armada-by-ritase";
+    final String url = "${Endpoints.baseUrl}/operasi/reguler/armada-by-ritase";
 
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 

@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:lmb_online/models/refresh_token_model.dart';
+import 'package:lmb_online/services/endpoint.dart';
 
 class RefreshToken {
   final Dio _dio = Dio();
 
-  final _baseUrl = "http://apioperasi.bigiip.com";
-
   Future<RefreshTokenModel> refreshToken(String token, String username) async {
-    final String url = "$_baseUrl/operasi/generate-token";
+    final String url = "${Endpoints.baseUrl}/operasi/generate-token";
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 
     Map<String, String> headers = {

@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:lmb_online/models/version_model.dart';
+import 'package:lmb_online/services/endpoint.dart';
 
 class CheckVersion {
   final Dio _dio = Dio();
 
-  final _baseUrl = "http://apioperasi.bigiip.com";
-
   Future<VersionModel> checkVersion() async {
-    final String url = "$_baseUrl/lmb_online/dashboard/version_apps";
+    final String url = "${Endpoints.baseUrl}/lmb_online/dashboard/version_apps";
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('admin:1234'));
 
     Map<String, String> headers = {

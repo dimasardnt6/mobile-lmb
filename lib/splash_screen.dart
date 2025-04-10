@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmb_online/services/check_version.dart';
 import 'package:lmb_online/views/pengemudi/dashboard_pengemudi.dart';
+import 'package:lmb_online/views/ppa/dashboard_ppa.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,24 +38,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        color: Color(0xFF1A447F),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      height: 65,
-                      child: Center(
-                        child: Text(
-                          'Versi Aplikasi',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    Center(
+                      child: Text(
+                        'Versi Aplikasi',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -62,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: Column(
                         children: [
                           SvgPicture.asset(
-                            'assets/images/ic_data_error.svg',
+                            'assets/images/ic_failed.svg',
                             width: 90,
                             height: 90,
                           ),
@@ -81,8 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
+                                SystemNavigator.pop();
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF1A447F),
@@ -127,24 +117,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        color: Color(0xFF1A447F),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      height: 65,
-                      child: Center(
-                        child: Text(
-                          'Versi Aplikasi',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    Center(
+                      child: Text(
+                        'Versi Aplikasi',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -153,7 +132,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: Column(
                         children: [
                           SvgPicture.asset(
-                            'assets/images/ic_data_error.svg',
+                            'assets/images/ic_failed.svg',
                             width: 90,
                             height: 90,
                           ),
@@ -178,14 +157,29 @@ class _SplashScreenState extends State<SplashScreen> {
                                   'version_name',
                                   response.data!.version_name,
                                 );
-
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder:
-                                        (context) => const DashboardPengemudi(),
-                                  ),
+                                final String? id_level = prefs.getString(
+                                  'id_level',
                                 );
+
+                                // Jika id_level '5' maka ke dashboard pengemudi, jika bukan maka ke dashboardppa
+                                if (id_level == '5') {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) =>
+                                              const DashboardPengemudi(),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => const DashboardPpa(),
+                                    ),
+                                  );
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF1A447F),
