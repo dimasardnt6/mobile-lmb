@@ -13,8 +13,8 @@ import 'package:lmb_online/services/operasi/reguler_komersil/get_komersil_total.
 import 'package:lmb_online/services/ppa/verifikasi_ppa.dart';
 import 'package:lmb_online/views/pengemudi/cek_tiket.dart';
 import 'package:lmb_online/views/pengemudi/lmb/reguler/detail_ritase.dart';
-import 'package:lmb_online/views/pengemudi/widget/detail_lmb_card.dart';
-import 'package:lmb_online/views/pengemudi/widget/scan_tiket.dart';
+import 'package:lmb_online/views/widget/detail_lmb_card.dart';
+import 'package:lmb_online/views/widget/scan_barcode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailLmbPm extends StatefulWidget {
@@ -211,7 +211,7 @@ class _DetailLmbPmState extends State<DetailLmbPm> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ScanTiket(tiketBeliValue: _tiketBeli),
+        builder: (context) => ScanBarcode(tiketBeliValue: _tiketBeli),
       ),
     );
     if (result != null) {

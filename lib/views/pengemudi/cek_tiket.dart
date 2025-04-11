@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmb_online/models/laporan/cek_tiket_model.dart';
 import 'package:lmb_online/services/laporan/cek_tiket.dart';
-import 'package:lmb_online/views/pengemudi/widget/scan_tiket.dart';
+import 'package:lmb_online/views/widget/scan_barcode.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
 
@@ -374,7 +374,7 @@ class _CekTiketState extends State<CekTiket> {
                                     context,
                                     MaterialPageRoute(
                                       builder:
-                                          (context) => const ScanTiket(
+                                          (context) => const ScanBarcode(
                                             tiketBeliValue: '3',
                                           ),
                                     ),

@@ -5,7 +5,7 @@ import 'package:lmb_online/models/laporan/get_laporan_lmb_reguler_model.dart';
 import 'package:lmb_online/models/laporan/get_laporan_lmb_ritase_model.dart';
 import 'package:lmb_online/services/laporan/get_laporan_lmb_reguler.dart';
 import 'package:lmb_online/services/laporan/get_laporan_lmb_ritase.dart';
-import 'package:lmb_online/views/pengemudi/widget/detail_lmb_card.dart';
+import 'package:lmb_online/views/widget/detail_lmb_card.dart';
 import 'package:shared_preferences/shared_preferences.dart'
     show SharedPreferences;
 

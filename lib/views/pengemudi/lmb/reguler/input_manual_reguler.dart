@@ -12,7 +12,7 @@ import 'package:lmb_online/services/lmb/post_lmb_manual.dart';
 import 'package:lmb_online/services/lmb/post_lmb_ritase.dart';
 import 'package:lmb_online/services/lmb/put_lmb_ritase.dart';
 import 'package:lmb_online/services/trayek/get_trayek_detail.dart';
-import 'package:lmb_online/views/pengemudi/widget/detail_lmb_card.dart';
+import 'package:lmb_online/views/widget/detail_lmb_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InputManualReguler extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmb_online/models/lmb/get_lmb_admin_model.dart';
-import 'package:lmb_online/views/pengemudi/widget/input_beban.dart';
+import 'package:lmb_online/views/widget/input_beban.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_lmb_pm.dart';
 
 class LmbPemaduModaPpa extends StatefulWidget {

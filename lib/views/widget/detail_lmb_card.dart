@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/lihat_laporan.dart';
+import 'package:lmb_online/views/widget/lihat_laporan.dart';
 import 'package:lmb_online/services/endpoint.dart';
 
 class DetailLmbCard extends StatefulWidget {

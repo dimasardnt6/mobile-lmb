@@ -17,7 +17,7 @@ import 'package:lmb_online/services/operasi/reguler_perkotaan/get_reguler.dart';
 import 'package:lmb_online/services/operasi/reguler_perkotaan/post_reguler.dart';
 import 'package:lmb_online/services/trayek/get_trayek_bko.dart';
 import 'package:lmb_online/services/trayek/get_trayek_detail.dart';
-import 'package:lmb_online/views/pengemudi/widget/detail_lmb_card.dart';
+import 'package:lmb_online/views/widget/detail_lmb_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InputByKm extends StatefulWidget {

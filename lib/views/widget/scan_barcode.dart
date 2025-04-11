@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-class ScanTiket extends StatefulWidget {
+class ScanBarcode extends StatefulWidget {
   final String tiketBeliValue;
 
-  const ScanTiket({Key? key, required this.tiketBeliValue}) : super(key: key);
+  const ScanBarcode({Key? key, required this.tiketBeliValue}) : super(key: key);
 
   @override
-  State<ScanTiket> createState() => _ScanTiketState();
+  State<ScanBarcode> createState() => _ScanBarcodeState();
 }
 
-class _ScanTiketState extends State<ScanTiket> {
+class _ScanBarcodeState extends State<ScanBarcode> {
   String? scanResult;
   bool _isFlashOn = false;
   final MobileScannerController _mobileScannerController =

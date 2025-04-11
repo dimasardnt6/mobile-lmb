@@ -18,7 +18,7 @@ import 'package:lmb_online/views/pengemudi/lmb/lmb_manual_reguler.dart';
 import 'package:lmb_online/views/pengemudi/lmb/lmb_pemadu_moda.dart';
 import 'package:lmb_online/views/pengemudi/lmb/reguler/manual_km.dart';
 import 'package:lmb_online/views/pengemudi/pemeriksaan_keselamatan.dart';
-import 'package:lmb_online/views/pengemudi/widget/header_dashboard_card.dart';
+import 'package:lmb_online/views/widget/header_dashboard_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPengemudi extends StatefulWidget {
@@ -1018,449 +1018,93 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 242, 248, 255),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          _initData();
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Header Dashboar
-              HeaderDashboardCard(
-                nmUser: nm_user,
-                versionName: version_name,
-                onRefresh: _initData,
-                onLogout: () => _showLogoutConfirmationDialog(context),
-              ),
-              // Slider LMB
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children:
-                              _lmbDriverList.isNotEmpty
-                                  ? _lmbDriverList.map((item) {
-                                    return GestureDetector(
-                                      onTap: () async {
-                                        await _handleGetVerifikasiPemeriksaan(
-                                          item.id_lmb!,
-                                        );
-                                        if (item.status_ritase == "6" ||
-                                            item.status_ritase == null) {
-                                          // if (item.status_ritase == "6") {
-                                          ScaffoldMessenger.of(
-                                            context,
-                                          ).showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                item.status_ritase == "6"
-                                                    ? 'LMB Sudah Selesai'
-                                                    : item.status_ritase == null
-                                                    ? 'Belum Mulai Shift'
-                                                    : '',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              backgroundColor: Colors.red,
-                                            ),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color.fromARGB(255, 242, 248, 255),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            _initData();
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Header Dashboar
+                HeaderDashboardCard(
+                  nmUser: nm_user,
+                  versionName: version_name,
+                  onRefresh: _initData,
+                  onLogout: () => _showLogoutConfirmationDialog(context),
+                ),
+                // Slider LMB
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            children:
+                                _lmbDriverList.isNotEmpty
+                                    ? _lmbDriverList.map((item) {
+                                      return GestureDetector(
+                                        onTap: () async {
+                                          await _handleGetVerifikasiPemeriksaan(
+                                            item.id_lmb!,
                                           );
-                                        } else {
-                                          if (_verifikasiPemeriksaanData!
-                                                  .code ==
-                                              404) {
-                                            _showDialogPemeriksaanKeselamatan(
-                                              idLmbValue: item.id_lmb,
-                                            );
-                                          } else if (_verifikasiPemeriksaanData!
-                                                  .code ==
-                                              200) {
-                                            _handleDetailLmb(item);
-                                          } else {
+                                          if (item.status_ritase == "6" ||
+                                              item.status_ritase == null) {
+                                            // if (item.status_ritase == "6") {
                                             ScaffoldMessenger.of(
                                               context,
                                             ).showSnackBar(
                                               SnackBar(
                                                 content: Text(
-                                                  "${_verifikasiPemeriksaanData!.message}",
+                                                  item.status_ritase == "6"
+                                                      ? 'LMB Sudah Selesai'
+                                                      : item.status_ritase ==
+                                                          null
+                                                      ? 'Belum Mulai Shift'
+                                                      : '',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                                 backgroundColor: Colors.red,
                                               ),
                                             );
-                                          }
-                                        }
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10,
-                                        ),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(
+                                          } else {
+                                            if (_verifikasiPemeriksaanData!
+                                                    .code ==
+                                                404) {
+                                              _showDialogPemeriksaanKeselamatan(
+                                                idLmbValue: item.id_lmb,
+                                              );
+                                            } else if (_verifikasiPemeriksaanData!
+                                                    .code ==
+                                                200) {
+                                              _handleDetailLmb(item);
+                                            } else {
+                                              ScaffoldMessenger.of(
                                                 context,
-                                              ).size.width *
-                                              0.85,
-                                          margin: const EdgeInsets.only(
-                                            right: 10,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                item.status_ritase == "1" ||
-                                                        item.status_ritase ==
-                                                            "2" ||
-                                                        item.status_ritase ==
-                                                            "3"
-                                                    ? const Color.fromARGB(
-                                                      255,
-                                                      167,
-                                                      211,
-                                                      151,
-                                                    )
-                                                    : item.status_ritase == "6"
-                                                    // dark grey
-                                                    ? const Color.fromARGB(
-                                                      255,
-                                                      169,
-                                                      169,
-                                                      169,
-                                                    )
-                                                    : const Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      255,
-                                                      255,
-                                                    ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                // ignore: deprecated_member_use
-                                                color: Colors.black.withOpacity(
-                                                  0.1,
-                                                ),
-                                                spreadRadius: 1,
-                                                blurRadius: 5,
-                                                offset: const Offset(2, 2),
-                                              ),
-                                            ],
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                              top: 20,
-                                              bottom: 20,
-                                              left: 20,
-                                              right: 5,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    // Kolom No LMB
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          'No LMB',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'assets/images/ic_lmb.svg',
-                                                              width: 20,
-                                                              height: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Text(
-                                                              item.id_lmb ??
-                                                                  '-',
-                                                              style: const TextStyle(
-                                                                color:
-                                                                    Colors
-                                                                        .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    // Kolom Tanggal
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          'Tanggal',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'assets/images/ic_calendar.svg',
-                                                              width: 20,
-                                                              height: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Text(
-                                                              item.tgl_awal ??
-                                                                  '-',
-                                                              style: const TextStyle(
-                                                                color:
-                                                                    Colors
-                                                                        .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                // Kolom Kode Armada
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          'Kode Armada',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'assets/images/ic_bus_front.svg',
-                                                              width: 20,
-                                                              height: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Text(
-                                                              item.kd_armada ??
-                                                                  '-',
-                                                              style: const TextStyle(
-                                                                color:
-                                                                    Colors
-                                                                        .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    // Kolom Trayek
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        const Text(
-                                                          'Trayek',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 5,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'assets/images/ic_route.svg',
-                                                              width: 20,
-                                                              height: 20,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 5,
-                                                            ),
-                                                            Text(
-                                                              item.kd_trayek ??
-                                                                  '-',
-                                                              style: const TextStyle(
-                                                                color:
-                                                                    Colors
-                                                                        .black,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                if (item.id_segment_transaksi ==
-                                                    "1")
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                          right: 10,
-                                                        ),
-                                                    child: Column(
-                                                      children: [
-                                                        SvgPicture.asset(
-                                                          'assets/images/ic_bus_front.svg',
-                                                          width: 50,
-                                                          height: 60,
-                                                        ),
-                                                      ],
-                                                    ),
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    "${_verifikasiPemeriksaanData!.message}",
                                                   ),
-                                                if (item.id_segment_transaksi ==
-                                                    "2")
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                          right: 10,
-                                                        ),
-                                                    child: Column(
-                                                      children: [
-                                                        SvgPicture.asset(
-                                                          'assets/images/ic_plane.svg',
-                                                          width: 50,
-                                                          height: 60,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }).toList()
-                                  : [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'LMB',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Center(
-                                            child: SvgPicture.asset(
-                                              'assets/images/ic_data_error.svg',
-                                              width: 100,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              // Aktifitas
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const Text(
-                      'Aktifitas',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 1, 43, 80),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              children:
-                                  _listAktivitasDriver.isNotEmpty
-                                      ? _listAktivitasDriver.map((item) {
-                                        return Padding(
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              );
+                                            }
+                                          }
+                                        },
+                                        child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                             vertical: 10,
                                           ),
@@ -1474,7 +1118,33 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                               right: 10,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: Colors.white,
+                                              color:
+                                                  item.status_ritase == "1" ||
+                                                          item.status_ritase ==
+                                                              "2" ||
+                                                          item.status_ritase ==
+                                                              "3"
+                                                      ? const Color.fromARGB(
+                                                        255,
+                                                        167,
+                                                        211,
+                                                        151,
+                                                      )
+                                                      : item.status_ritase ==
+                                                          "6"
+                                                      // dark grey
+                                                      ? const Color.fromARGB(
+                                                        255,
+                                                        169,
+                                                        169,
+                                                        169,
+                                                      )
+                                                      : const Color.fromARGB(
+                                                        255,
+                                                        255,
+                                                        255,
+                                                        255,
+                                                      ),
                                               boxShadow: [
                                                 BoxShadow(
                                                   // ignore: deprecated_member_use
@@ -1493,14 +1163,13 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                 top: 20,
                                                 bottom: 20,
                                                 left: 20,
-                                                right: 20,
+                                                right: 5,
                                               ),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  // Kolom 1
                                                   Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
@@ -1523,10 +1192,20 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                           const SizedBox(
                                                             height: 5,
                                                           ),
-                                                          Text(
-                                                            item.id_lmb ?? '-',
-                                                            style:
-                                                                const TextStyle(
+                                                          Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                'assets/images/ic_lmb.svg',
+                                                                width: 20,
+                                                                height: 20,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                item.id_lmb ??
+                                                                    '-',
+                                                                style: const TextStyle(
                                                                   color:
                                                                       Colors
                                                                           .black,
@@ -1535,6 +1214,8 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                                       FontWeight
                                                                           .bold,
                                                                 ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
@@ -1558,11 +1239,20 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                           const SizedBox(
                                                             height: 5,
                                                           ),
-                                                          Text(
-                                                            item.tgl_awal ??
-                                                                '-',
-                                                            style:
-                                                                const TextStyle(
+                                                          Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                'assets/images/ic_calendar.svg',
+                                                                width: 20,
+                                                                height: 20,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                item.tgl_awal ??
+                                                                    '-',
+                                                                style: const TextStyle(
                                                                   color:
                                                                       Colors
                                                                           .black,
@@ -1571,25 +1261,26 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                                       FontWeight
                                                                           .bold,
                                                                 ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ],
                                                   ),
-                                                  // Kolom 2
+                                                  // Kolom Kode Armada
                                                   Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      // Kolom Ritase
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
                                                           const Text(
-                                                            'Ritase',
+                                                            'Kode Armada',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1599,10 +1290,20 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                           const SizedBox(
                                                             height: 5,
                                                           ),
-                                                          Text(
-                                                            item.ritase ?? '0',
-                                                            style:
-                                                                const TextStyle(
+                                                          Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                'assets/images/ic_bus_front.svg',
+                                                                width: 20,
+                                                                height: 20,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                item.kd_armada ??
+                                                                    '-',
+                                                                style: const TextStyle(
                                                                   color:
                                                                       Colors
                                                                           .black,
@@ -1611,20 +1312,22 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                                       FontWeight
                                                                           .bold,
                                                                 ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                       const SizedBox(
                                                         height: 10,
                                                       ),
-                                                      // Kolom Total PNP
+                                                      // Kolom Trayek
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
                                                           const Text(
-                                                            'Total PNP',
+                                                            'Trayek',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -1634,10 +1337,20 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                           const SizedBox(
                                                             height: 5,
                                                           ),
-                                                          Text(
-                                                            item.tot_pnp ?? '0',
-                                                            style:
-                                                                const TextStyle(
+                                                          Row(
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                'assets/images/ic_route.svg',
+                                                                width: 20,
+                                                                height: 20,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 5,
+                                                              ),
+                                                              Text(
+                                                                item.kd_trayek ??
+                                                                    '-',
+                                                                style: const TextStyle(
                                                                   color:
                                                                       Colors
                                                                           .black,
@@ -1646,322 +1359,635 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                                                       FontWeight
                                                                           .bold,
                                                                 ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ],
                                                   ),
-                                                  // Kolom 3
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      // Kolom Status
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                  if (item.id_segment_transaksi ==
+                                                      "1")
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                            right: 10,
+                                                          ),
+                                                      child: Column(
                                                         children: [
-                                                          const Text(
-                                                            'Status',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            item.status_ritase ??
-                                                                'Belum Mulai Shift',
-                                                            style:
-                                                                const TextStyle(
-                                                                  color:
-                                                                      Colors
-                                                                          .black,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                          SvgPicture.asset(
+                                                            'assets/images/ic_bus_front.svg',
+                                                            width: 50,
+                                                            height: 60,
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      // Kolom KM Odo
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                    ),
+                                                  if (item.id_segment_transaksi ==
+                                                      "2")
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                            right: 10,
+                                                          ),
+                                                      child: Column(
                                                         children: [
-                                                          const Text(
-                                                            'KM Odo',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            item.km
-                                                                    ?.split('.')
-                                                                    .first ??
-                                                                '0',
-                                                            style:
-                                                                const TextStyle(
-                                                                  color:
-                                                                      Colors
-                                                                          .black,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                          SvgPicture.asset(
+                                                            'assets/images/ic_plane.svg',
+                                                            width: 50,
+                                                            height: 60,
                                                           ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                        );
-                                      }).toList()
-                                      : [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'LMB',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 20),
-                                              Center(
-                                                child: SvgPicture.asset(
-                                                  'assets/images/ic_data_error.svg',
-                                                  width: 100,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                         ),
-                                      ],
-                            ),
+                                      );
+                                    }).toList()
+                                    : [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'LMB',
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Center(
+                                              child: SvgPicture.asset(
+                                                'assets/images/ic_data_error.svg',
+                                                width: 100,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Menu',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 1, 43, 80),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(height: 10),
+                // Aktifitas
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Text(
+                        'Aktifitas',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 1, 43, 80),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Row(
+                                children:
+                                    _listAktivitasDriver.isNotEmpty
+                                        ? _listAktivitasDriver.map((item) {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            child: Container(
+                                              width:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).size.width *
+                                                  0.85,
+                                              margin: const EdgeInsets.only(
+                                                right: 10,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    // ignore: deprecated_member_use
+                                                    color: Colors.black
+                                                        .withOpacity(0.1),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(2, 2),
+                                                  ),
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                  top: 20,
+                                                  bottom: 20,
+                                                  left: 20,
+                                                  right: 20,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    // Kolom 1
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // Kolom No LMB
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'No LMB',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.id_lmb ??
+                                                                  '-',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        // Kolom Tanggal
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'Tanggal',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.tgl_awal ??
+                                                                  '-',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    // Kolom 2
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // Kolom Ritase
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'Ritase',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.ritase ??
+                                                                  '0',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        // Kolom Total PNP
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'Total PNP',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.tot_pnp ??
+                                                                  '0',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    // Kolom 3
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // Kolom Status
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'Status',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.status_ritase ??
+                                                                  'Belum Mulai Shift',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        // Kolom KM Odo
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Text(
+                                                              'KM Odo',
+                                                              style: TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              item.km
+                                                                      ?.split(
+                                                                        '.',
+                                                                      )
+                                                                      .first ??
+                                                                  '0',
+                                                              style: const TextStyle(
+                                                                color:
+                                                                    Colors
+                                                                        .black,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }).toList()
+                                        : [
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                            ),
+                                            width:
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.width,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'LMB',
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 20),
+                                                Center(
+                                                  child: SvgPicture.asset(
+                                                    'assets/images/ic_data_error.svg',
+                                                    width: 100,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Card 1
-                            GestureDetector(
-                              onTap: () {
-                                _dialogShift();
-                              },
-                              child: Container(
-                                height: 130,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                padding: EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_shift.svg',
-                                      width: 60,
-                                      height: 60,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Shift',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            // Card 2
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CekTiket(),
-                                  ),
-                                ).then((refresh) {
-                                  if (refresh == true) {
-                                    _initData();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                height: 130,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      // ignore: deprecated_member_use
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_ticket.svg',
-                                      width: 60,
-                                      height: 60,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Cek Tiket',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            // Card 3
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LaporanLmb(),
-                                  ),
-                                ).then((refresh) {
-                                  if (refresh == true) {
-                                    _initData();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                height: 130,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      // ignore: deprecated_member_use
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_lmb.svg',
-                                      width: 60,
-                                      height: 60,
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Text(
-                                      'Laporan',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Menu',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 1, 43, 80),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Card 1
+                              GestureDetector(
+                                onTap: () {
+                                  _dialogShift();
+                                },
+                                child: Container(
+                                  height: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  padding: EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_shift.svg',
+                                        width: 60,
+                                        height: 60,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Shift',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Card 2
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CekTiket(),
+                                    ),
+                                  ).then((refresh) {
+                                    if (refresh == true) {
+                                      _initData();
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // ignore: deprecated_member_use
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_ticket.svg',
+                                        width: 60,
+                                        height: 60,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Cek Tiket',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Card 3
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LaporanLmb(),
+                                    ),
+                                  ).then((refresh) {
+                                    if (refresh == true) {
+                                      _initData();
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 130,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // ignore: deprecated_member_use
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_lmb.svg',
+                                        width: 60,
+                                        height: 60,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        'Laporan',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

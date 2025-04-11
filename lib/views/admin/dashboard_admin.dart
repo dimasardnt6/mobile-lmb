@@ -10,7 +10,7 @@ import 'package:lmb_online/views/login_screen.dart';
 import 'package:lmb_online/services/auth/auth_controller.dart';
 import 'package:lmb_online/views/pengemudi/cek_tiket.dart';
 import 'package:lmb_online/views/pengemudi/laporan_lmb.dart';
-import 'package:lmb_online/views/pengemudi/widget/header_dashboard_card.dart';
+import 'package:lmb_online/views/widget/header_dashboard_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardAdmin extends StatefulWidget {
@@ -690,576 +690,588 @@ class _DashboardAdminState extends State<DashboardAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 242, 248, 255),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          _initData();
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Header Dashboar
-              HeaderDashboardCard(
-                nmUser: nm_user,
-                versionName: version_name,
-                onRefresh: _initData,
-                onLogout: () => _showLogoutConfirmationDialog(context),
-              ),
-              const SizedBox(height: 20),
-              // Stats
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEFEFEF),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        // ignore: deprecated_member_use
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: const Offset(2, 2),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      // Cabang dan Tanggal
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: GestureDetector(
-                              onTap: () {
-                                _showDialogDaftarCabang();
-                              },
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color.fromARGB(255, 242, 248, 255),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            _initData();
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Header Dashboar
+                HeaderDashboardCard(
+                  nmUser: nm_user,
+                  versionName: version_name,
+                  onRefresh: _initData,
+                  onLogout: () => _showLogoutConfirmationDialog(context),
+                ),
+                const SizedBox(height: 20),
+                // Stats
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEFEFEF),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          // ignore: deprecated_member_use
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        // Cabang dan Tanggal
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _showDialogDaftarCabang();
+                                },
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/ic_school.svg',
+                                      width: 30,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Cabang',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Bandara Soekarno Hatta',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            softWrap: true,
+                                            overflow: TextOverflow.visible,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/ic_date.svg',
+                                  width: 30,
+                                ),
+                                const SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Tanggal',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      '2025-03-14',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+                        // LMB Sima dan LMB Online
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SvgPicture.asset(
-                                    'assets/images/ic_school.svg',
-                                    width: 30,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Cabang',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                          ),
+                                  // LMB SIMA
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.35,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        255,
+                                        255,
+                                        255,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(2, 2),
                                         ),
-                                        Text(
-                                          'Bandara Soekarno Hatta',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          softWrap: true,
-                                          overflow: TextOverflow.visible,
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/ic_web.svg',
+                                          width: 20,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          width: 2,
+                                          height: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              'LMB SIMA',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              '30',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // LMB ONLINE
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.35,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        255,
+                                        255,
+                                        255,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(2, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/ic_smartphone.svg',
+                                          width: 20,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          width: 2,
+                                          height: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              'LMB ONLINE',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              '20',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/ic_date.svg',
-                                width: 30,
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              const SizedBox(height: 20),
+                              // PENUMPANG
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Tanggal',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
+                                  // PNP VALIDASI
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.35,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        255,
+                                        255,
+                                        255,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(2, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/ic_pnp_validasi.svg',
+                                          width: 20,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          width: 2,
+                                          height: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              'PNP VALIDASI',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              '200',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Text(
-                                    '2025-03-14',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
+                                  // PNP APPROVED
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.35,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                        255,
+                                        255,
+                                        255,
+                                        255,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(2, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/ic_pnp_approved.svg',
+                                          width: 20,
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Container(
+                                          width: 2,
+                                          height: 60,
+                                          color: Colors.grey,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              'PNP APPROVED',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              '30',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 20),
-                      // LMB Sima dan LMB Online
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // LMB SIMA
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      255,
-                                      255,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        // ignore: deprecated_member_use
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/images/ic_web.svg',
-                                        width: 20,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        width: 2,
-                                        height: 60,
-                                        color: Colors.grey,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            'LMB SIMA',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            '30',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // LMB ONLINE
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      255,
-                                      255,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        // ignore: deprecated_member_use
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/images/ic_smartphone.svg',
-                                        width: 20,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        width: 2,
-                                        height: 60,
-                                        color: Colors.grey,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            'LMB ONLINE',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            '20',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            // PENUMPANG
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // PNP VALIDASI
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      255,
-                                      255,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        // ignore: deprecated_member_use
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/images/ic_pnp_validasi.svg',
-                                        width: 20,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        width: 2,
-                                        height: 60,
-                                        color: Colors.grey,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            'PNP VALIDASI',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            '200',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // PNP APPROVED
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                      255,
-                                      255,
-                                      255,
-                                      255,
-                                    ),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        // ignore: deprecated_member_use
-                                        color: Colors.black.withOpacity(0.1),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/images/ic_pnp_approved.svg',
-                                        width: 20,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Container(
-                                        width: 2,
-                                        height: 60,
-                                        color: Colors.grey,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            'PNP APPROVED',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            '30',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              // 3 Menu
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Card 1
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CekTiket(),
-                                  ),
-                                ).then((refresh) {
-                                  if (refresh == true) {
-                                    _initData();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      // ignore: deprecated_member_use
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_ticket.svg',
-                                      width: 20,
-                                      height: 25,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    const Text(
-                                      'CEK TIKET',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            // Card 2
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LaporanLmb(),
-                                  ),
-                                ).then((refresh) {
-                                  if (refresh == true) {
-                                    _initData();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      // ignore: deprecated_member_use
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_lmb.svg',
-                                      width: 20,
-                                      height: 25,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    const Text(
-                                      'LAPORAN',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            // Card 3
-                            GestureDetector(
-                              onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => LaporanLmb(),
-                                //   ),
-                                // ).then((refresh) {
-                                //   if (refresh == true) {
-                                //     _initData();
-                                //   }
-                                // });
-                              },
-                              child: Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width * 0.28,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    255,
-                                    255,
-                                    255,
-                                  ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      // ignore: deprecated_member_use
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(2, 2),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/ic_bus_front.svg',
-                                      width: 20,
-                                      height: 25,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    const Text(
-                                      'ARMADA',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 20),
+                // 3 Menu
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Card 1
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CekTiket(),
+                                    ),
+                                  ).then((refresh) {
+                                    if (refresh == true) {
+                                      _initData();
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 80,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // ignore: deprecated_member_use
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_ticket.svg',
+                                        width: 20,
+                                        height: 25,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        'CEK TIKET',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Card 2
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LaporanLmb(),
+                                    ),
+                                  ).then((refresh) {
+                                    if (refresh == true) {
+                                      _initData();
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 80,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // ignore: deprecated_member_use
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_lmb.svg',
+                                        width: 20,
+                                        height: 25,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        'LAPORAN',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              // Card 3
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => LaporanLmb(),
+                                  //   ),
+                                  // ).then((refresh) {
+                                  //   if (refresh == true) {
+                                  //     _initData();
+                                  //   }
+                                  // });
+                                },
+                                child: Container(
+                                  height: 80,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.28,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                      255,
+                                      255,
+                                      255,
+                                      255,
+                                    ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        // ignore: deprecated_member_use
+                                        color: Colors.black.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/ic_bus_front.svg',
+                                        width: 20,
+                                        height: 25,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      const Text(
+                                        'ARMADA',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

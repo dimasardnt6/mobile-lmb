@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
-import 'package:lmb_online/views/pengemudi/widget/input_beban.dart';
+import 'package:lmb_online/views/widget/input_beban.dart';
 import 'package:lmb_online/views/pengemudi/lmb/reguler/input_by_km.dart';
 
 class LmbInputByKm extends StatefulWidget {
