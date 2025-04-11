@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:lmb_online/services/endpoint.dart';
-import 'package:lmb_online/models/armada/armada_by_id_model.dart';
+import 'package:lmb_online/models/armada/put_armada_by_id_model.dart';
 
 class PutArmadaById {
   final Dio _dio = Dio();
 
-  Future<ArmadaByIdModel> putArmadaById(
+  Future<PutArmadaByIdModel> putArmadaById(
     String id_lmb_reguler_apps,
     String id_lmb,
     String ritase,
@@ -42,12 +42,12 @@ class PutArmadaById {
 
       if (responseCode == 202) {
         print("Response Data: $responseData");
-        return ArmadaByIdModel(
+        return PutArmadaByIdModel(
           code: responseCode,
           message: responseData['message'] ?? "Berhasil mengubah data armada.",
         );
       } else {
-        return ArmadaByIdModel(
+        return PutArmadaByIdModel(
           code: responseCode,
           message: responseData['message'] ?? "Gagal mengubah data armada.",
         );
@@ -60,13 +60,13 @@ class PutArmadaById {
           e.response?.statusMessage ??
           "Terjadi Kesalahan.";
 
-      return ArmadaByIdModel(
+      return PutArmadaByIdModel(
         code: e.response?.statusCode ?? 500,
         message: "Gagal mengubah data armada: $errorMessage",
       );
     } catch (e) {
       print("Error: $e");
-      return ArmadaByIdModel(code: 500, message: "Terjadi Kesalahan: $e");
+      return PutArmadaByIdModel(code: 500, message: "Terjadi Kesalahan: $e");
     }
   }
 }

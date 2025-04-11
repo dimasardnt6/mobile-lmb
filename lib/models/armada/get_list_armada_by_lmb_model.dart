@@ -1,12 +1,12 @@
-class ListArmadaByLmbModel {
+class GetListArmadaByLmbModel {
   final int? code;
   final String? message;
   final List<ListArmadaByLmbData>? data;
 
-  ListArmadaByLmbModel({this.code, this.message, this.data});
+  GetListArmadaByLmbModel({this.code, this.message, this.data});
 
-  factory ListArmadaByLmbModel.fromJson(Map<String, dynamic> json) {
-    return ListArmadaByLmbModel(
+  factory GetListArmadaByLmbModel.fromJson(Map<String, dynamic> json) {
+    return GetListArmadaByLmbModel(
       code: json['code'],
       message: json['message'],
       data:
@@ -20,7 +20,7 @@ class ListArmadaByLmbModel {
 
   @override
   String toString() {
-    return 'ListArmadaByLmbModel(code: $code, message: $message, data: $data)';
+    return 'GetListArmadaByLmbModel(code: $code, message: $message, data: $data)';
   }
 }
 

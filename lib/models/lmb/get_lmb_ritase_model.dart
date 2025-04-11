@@ -1,12 +1,12 @@
-class LmbRitaseModel {
+class GetLmbRitaseModel {
   int code;
   String message;
   LmbRitaseData? data;
 
-  LmbRitaseModel({required this.code, required this.message, this.data});
+  GetLmbRitaseModel({required this.code, required this.message, this.data});
 
-  factory LmbRitaseModel.fromJson(Map<String, dynamic> json) {
-    return LmbRitaseModel(
+  factory GetLmbRitaseModel.fromJson(Map<String, dynamic> json) {
+    return GetLmbRitaseModel(
       code: json['code'],
       message: json['message'],
       data: json['data'] != null ? LmbRitaseData.fromJson(json['data']) : null,
@@ -15,7 +15,7 @@ class LmbRitaseModel {
 
   @override
   String toString() {
-    return 'LmbRitaseModel(code: $code, message: $message, data: ${data?.toString() ?? "null"})';
+    return 'GetLmbRitaseModel(code: $code, message: $message, data: ${data?.toString() ?? "null"})';
   }
 }
 

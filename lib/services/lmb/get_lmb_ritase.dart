@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:lmb_online/services/endpoint.dart';
 import 'package:dio/dio.dart';
-import 'package:lmb_online/models/lmb/lmb_ritase_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_ritase_model.dart';
 
 class GetLmbRitase {
   final Dio _dio = Dio();
 
-  Future<LmbRitaseModel> getLmbRitase(String id_lmb, String token) async {
+  Future<GetLmbRitaseModel> getLmbRitase(String id_lmb, String token) async {
     String basicAuth = 'Basic ${base64Encode(utf8.encode('admin:1234'))}';
 
     Map<String, String> headers = {
@@ -25,15 +25,15 @@ class GetLmbRitase {
       final int responseCode = responseData['code'];
 
       if (responseCode == 200) {
-        return LmbRitaseModel.fromJson(responseData);
+        return GetLmbRitaseModel.fromJson(responseData);
       } else {
-        return LmbRitaseModel(
+        return GetLmbRitaseModel(
           code: responseCode,
           message: responseData['message'] ?? "Gagal mendapatkan data ritase.",
         );
       }
     } on DioError catch (e) {
-      return LmbRitaseModel(
+      return GetLmbRitaseModel(
         code: e.response?.data['code'],
         message: e.response?.data['message'],
       );

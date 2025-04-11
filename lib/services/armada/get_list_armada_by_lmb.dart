@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:lmb_online/services/endpoint.dart';
-import 'package:lmb_online/models/armada/list_armada_by_lmb_model.dart';
+import 'package:lmb_online/models/armada/get_list_armada_by_lmb_model.dart';
 
 class GetListArmadaByLmb {
   final Dio _dio = Dio();
 
-  Future<ListArmadaByLmbModel> getListArmadaByLmb(
+  Future<GetListArmadaByLmbModel> getListArmadaByLmb(
     String id_bu,
     String tgl_awal,
   ) async {
@@ -30,9 +30,9 @@ class GetListArmadaByLmb {
       final int responseCode = responseData['code'];
 
       if (responseCode == 200) {
-        return ListArmadaByLmbModel.fromJson(responseData);
+        return GetListArmadaByLmbModel.fromJson(responseData);
       } else {
-        return ListArmadaByLmbModel(
+        return GetListArmadaByLmbModel(
           code: responseCode,
           message:
               responseData['message'] ??
@@ -47,13 +47,16 @@ class GetListArmadaByLmb {
           e.response?.statusMessage ??
           "Terjadi Kesalahan.";
 
-      return ListArmadaByLmbModel(
+      return GetListArmadaByLmbModel(
         code: e.response?.statusCode ?? 500,
         message: "Gagal mendapatkan data detail ritase: $errorMessage",
       );
     } catch (e) {
       print("Error: $e");
-      return ListArmadaByLmbModel(code: 500, message: "Terjadi Kesalahan: $e");
+      return GetListArmadaByLmbModel(
+        code: 500,
+        message: "Terjadi Kesalahan: $e",
+      );
     }
   }
 }
