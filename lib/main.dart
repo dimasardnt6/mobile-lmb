@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmb_online/splash_screen.dart';
-import 'package:lmb_online/views/login_screen.dart';
+// import 'package:lmb_online/views/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: const ColorScheme.light(primary: Color(0xFF1A447F)),
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

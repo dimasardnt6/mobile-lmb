@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmb_online/services/check_version.dart';
+import 'package:lmb_online/views/admin/dashboard_admin.dart';
+import 'package:lmb_online/views/login_screen.dart';
 import 'package:lmb_online/views/pengemudi/dashboard_pengemudi.dart';
 import 'package:lmb_online/views/ppa/dashboard_ppa.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -161,7 +163,6 @@ class _SplashScreenState extends State<SplashScreen> {
                                   'id_level',
                                 );
 
-                                // Jika id_level '5' maka ke dashboard pengemudi, jika bukan maka ke dashboardppa
                                 if (id_level == '5') {
                                   Navigator.pushReplacement(
                                     context,
@@ -171,12 +172,28 @@ class _SplashScreenState extends State<SplashScreen> {
                                               const DashboardPengemudi(),
                                     ),
                                   );
-                                } else {
+                                } else if (id_level == '77' ||
+                                    id_level == '1') {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => const DashboardAdmin(),
+                                    ),
+                                  );
+                                } else if (id_level == '14') {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder:
                                           (context) => const DashboardPpa(),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
                                     ),
                                   );
                                 }
