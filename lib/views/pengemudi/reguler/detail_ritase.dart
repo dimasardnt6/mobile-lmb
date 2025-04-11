@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lmb_online/models/armada/list_armada_by_lmb_model.dart';
+import 'package:lmb_online/models/armada/get_list_armada_by_lmb_model.dart';
 import 'package:lmb_online/models/lmb/detail_ritase_model.dart';
 import 'package:lmb_online/services/armada/get_list_armada_by_lmb.dart';
 import 'package:lmb_online/services/armada/put_armada_by_id.dart';

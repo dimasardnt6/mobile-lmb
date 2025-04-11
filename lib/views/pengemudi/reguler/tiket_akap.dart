@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmb_online/models/jadwal/post_jadwal_model.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
-import 'package:lmb_online/models/lmb/lmb_ritase_list_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_ritase_list_model.dart';
 import 'package:lmb_online/models/manifest/get_manifest_total_model.dart';
 import 'package:lmb_online/services/akap/validation_tiket_akap.dart';
 import 'package:lmb_online/services/jadwal/post_jadwal.dart';

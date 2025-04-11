@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmb_online/models/lmb/get_lmb_manual_model.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
-import 'package:lmb_online/models/lmb/lmb_ritase_list_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_ritase_list_model.dart';
 import 'package:lmb_online/models/trayek/get_trayek_detail_model.dart';
 import 'package:lmb_online/services/lmb/delete_lmb_ritase.dart';
 import 'package:lmb_online/services/lmb/delete_manual_reguler.dart';

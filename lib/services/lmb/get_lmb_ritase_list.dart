@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:lmb_online/services/endpoint.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:lmb_online/models/lmb/lmb_ritase_list_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_ritase_list_model.dart';
 
 class GetLmbRitaseList {
   final Dio _dio = Dio();
 
-  Future<LmbRitaseListModel> getLmbRitaseList(
+  Future<GetLmbRitaseListModel> getLmbRitaseList(
     String id_lmb,
     String token,
   ) async {
@@ -32,16 +32,16 @@ class GetLmbRitaseList {
       print("Response Data: $responseData");
 
       if (responseCode == 200) {
-        return LmbRitaseListModel.fromJson(responseData);
+        return GetLmbRitaseListModel.fromJson(responseData);
       } else {
-        return LmbRitaseListModel(
+        return GetLmbRitaseListModel(
           code: responseCode,
           message: responseData['message'] ?? "Gagal mendapatkan data ritase.",
         );
       }
     } on DioError catch (e) {
       debugPrint("DioError: ${e.response?.data}");
-      return LmbRitaseListModel(
+      return GetLmbRitaseListModel(
         code: e.response?.data['code'],
         message: e.response?.data['message'],
       );

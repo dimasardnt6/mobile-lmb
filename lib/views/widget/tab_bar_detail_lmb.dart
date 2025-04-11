@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lmb_online/models/lmb/get_lmb_admin_model.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
 import 'package:lmb_online/views/pengemudi/reguler/input_by_km.dart';
 import 'package:lmb_online/views/pengemudi/reguler/input_manual_reguler.dart';
 import 'package:lmb_online/views/pengemudi/reguler/manual_km.dart';

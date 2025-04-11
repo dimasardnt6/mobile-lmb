@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmb_online/models/besafety/get_verifikasi_pemeriksaan_model.dart';
 import 'package:lmb_online/models/dashboard/get_aktifitas_driver_model.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
 import 'package:lmb_online/services/besafety/get_verifikasi_pemeriksaan.dart';
 import 'package:lmb_online/services/dashboard/get_aktivitas_driver.dart';
-import 'package:lmb_online/services/lmb/lmb_driver_new.dart';
+import 'package:lmb_online/services/lmb/get_lmb_driver_new.dart';
 import 'package:lmb_online/services/lmb/post_lmb_ritase.dart';
 import 'package:lmb_online/services/refresh_token.dart';
 import 'package:lmb_online/views/login_screen.dart';
@@ -29,7 +29,7 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
   final GlobalKey<FormState> _catatanFormKey = GlobalKey<FormState>();
   final AuthController authController = AuthController();
   final RefreshToken refreshToken = RefreshToken();
-  final LmbDriverNew lmbDriverNew = LmbDriverNew();
+  final GetLmbDriverNew getLmbDriverNew = GetLmbDriverNew();
   final PostLmbRitase postLmbRitase = PostLmbRitase();
   final GetAktivitasDriver getAktivitasDriver = GetAktivitasDriver();
   final GetVerifikasiPemeriksaan getVerifikasiPemeriksaan =
@@ -77,7 +77,7 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
 
     handleRefreshToken();
     _handleGetAktivitasDriver();
-    await getLmbDriverNew();
+    await _handleGetLmbDriverNew();
 
     if (mounted && Navigator.canPop(context)) {
       Navigator.pop(context);
@@ -165,13 +165,13 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
   }
 
   // get lmb driver new
-  Future<void> getLmbDriverNew() async {
+  Future<void> _handleGetLmbDriverNew() async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     final String? username = prefs.getString('username');
 
     if (token != null && username != null) {
-      final response = await lmbDriverNew.getLmbDriverNew(username, token);
+      final response = await getLmbDriverNew.getLmbDriverNew(username, token);
 
       if (response.code == 200 && response.data != null) {
         setState(() {

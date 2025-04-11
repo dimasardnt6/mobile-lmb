@@ -1,12 +1,12 @@
-class LmbDriverNewModel {
+class GetLmbDriverNewModel {
   final int? code;
   final String? message;
   final List<LmbDriverNewData>? data;
 
-  LmbDriverNewModel({required this.code, required this.message, this.data});
+  GetLmbDriverNewModel({required this.code, required this.message, this.data});
 
-  factory LmbDriverNewModel.fromJson(Map<String, dynamic> json) {
-    return LmbDriverNewModel(
+  factory GetLmbDriverNewModel.fromJson(Map<String, dynamic> json) {
+    return GetLmbDriverNewModel(
       code: json['code'] ?? 0,
       message: json['message'] ?? "",
       data:
@@ -20,7 +20,7 @@ class LmbDriverNewModel {
 
   @override
   String toString() {
-    return 'LmbDriverNewModel('
+    return 'GetLmbDriverNewModel('
         'code: $code, '
         'message: $message, '
         'data: $data'

@@ -1,12 +1,12 @@
-class LmbRitaseListModel {
+class GetLmbRitaseListModel {
   int? code;
   String? message;
   List<LmbRitaseListData>? data;
 
-  LmbRitaseListModel({this.code, this.message, this.data});
+  GetLmbRitaseListModel({this.code, this.message, this.data});
 
-  factory LmbRitaseListModel.fromJson(Map<String, dynamic> json) {
-    return LmbRitaseListModel(
+  factory GetLmbRitaseListModel.fromJson(Map<String, dynamic> json) {
+    return GetLmbRitaseListModel(
       code: json['code'],
       message: json['message'],
       data:
@@ -20,7 +20,7 @@ class LmbRitaseListModel {
 
   @override
   String toString() {
-    return 'LmbRitaseListModel(code: $code, message: $message, data: $data)';
+    return 'GetLmbRitaseListModel(code: $code, message: $message, data: $data)';
   }
 }
 

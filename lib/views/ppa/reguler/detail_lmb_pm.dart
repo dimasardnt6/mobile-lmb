@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lmb_online/models/armada/list_armada_by_lmb_model.dart';
+import 'package:lmb_online/models/armada/get_list_armada_by_lmb_model.dart';
 import 'package:lmb_online/models/lmb/get_lmb_admin_model.dart';
 import 'package:lmb_online/models/operasi/reguler_komersil/komersil_total_model.dart';
 import 'package:lmb_online/services/ap2/validation_tiket_ap2.dart';

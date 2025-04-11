@@ -4,7 +4,7 @@ import 'package:lmb_online/models/beban/get_beban_model.dart';
 import 'package:lmb_online/models/beban/get_item_beban_model.dart';
 import 'package:lmb_online/models/beban/get_komponen_beban_model.dart';
 import 'package:lmb_online/models/lmb/get_lmb_admin_model.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
 import 'package:lmb_online/services/beban/delete_beban.dart';
 import 'package:lmb_online/services/beban/get_beban.dart';
 import 'package:lmb_online/services/beban/get_item_beban.dart';

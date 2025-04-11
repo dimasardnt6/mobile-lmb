@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
-import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
+import 'package:lmb_online/models/lmb/get_lmb_driver_new_model.dart';
 import 'package:lmb_online/services/endpoint.dart';
 
-class LmbDriverNew {
+class GetLmbDriverNew {
   final Dio _dio = Dio();
 
-  Future<LmbDriverNewModel> getLmbDriverNew(
+  Future<GetLmbDriverNewModel> getLmbDriverNew(
     String username,
     String token,
   ) async {
@@ -39,13 +39,12 @@ class LmbDriverNew {
       print("Response Data: $responseData");
 
       if (responseCode == 200) {
-        LmbDriverNewModel lmbDriverNewModel = LmbDriverNewModel.fromJson(
-          responseData,
-        );
-        print("LMB Driver New: $lmbDriverNewModel");
-        return lmbDriverNewModel;
+        GetLmbDriverNewModel GetlmbDriverNewModel =
+            GetLmbDriverNewModel.fromJson(responseData);
+        print("LMB Driver New: $GetlmbDriverNewModel");
+        return GetlmbDriverNewModel;
       } else {
-        return LmbDriverNewModel(
+        return GetLmbDriverNewModel(
           code: responseCode,
           message: responseData['message'] ?? "Gagal mendapatkan data LMB.",
         );
@@ -58,13 +57,13 @@ class LmbDriverNew {
           e.response?.statusMessage ??
           "Terjadi Kesalahan.";
 
-      return LmbDriverNewModel(
+      return GetLmbDriverNewModel(
         code: e.response?.statusCode ?? 500,
         message: "Gagal mendapatkan data LMB: $errorMessage",
       );
     } catch (e) {
       print("Error: $e");
-      return LmbDriverNewModel(code: 500, message: "Terjadi Kesalahan: $e");
+      return GetLmbDriverNewModel(code: 500, message: "Terjadi Kesalahan: $e");
     }
   }
 }
