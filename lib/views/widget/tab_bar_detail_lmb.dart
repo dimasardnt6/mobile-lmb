@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lmb_online/models/lmb/get_lmb_admin_model.dart';
 import 'package:lmb_online/models/lmb/lmb_driver_new_model.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/input_by_km.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/input_manual_reguler.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/manual_km.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/tiket_akap.dart';
+import 'package:lmb_online/views/pengemudi/reguler/input_by_km.dart';
+import 'package:lmb_online/views/pengemudi/reguler/input_manual_reguler.dart';
+import 'package:lmb_online/views/pengemudi/reguler/manual_km.dart';
+import 'package:lmb_online/views/pengemudi/reguler/tiket_akap.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_input_by_km.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_lmb_akap.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_lmb_input_manual_reguler.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_lmb_pm.dart';
 import 'package:lmb_online/views/ppa/reguler/detail_manual_km.dart';
 import 'package:lmb_online/views/widget/input_beban.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/tiket_pm.dart';
+import 'package:lmb_online/views/pengemudi/reguler/tiket_pm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TabBarDetailLmb extends StatefulWidget {

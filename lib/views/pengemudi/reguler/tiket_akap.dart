@@ -14,7 +14,7 @@ import 'package:lmb_online/services/manifest/delete_manifest.dart';
 import 'package:lmb_online/services/manifest/get_manifest_total.dart';
 import 'package:lmb_online/services/manifest/post_manifest.dart';
 import 'package:lmb_online/views/pengemudi/cek_tiket.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/detail_ritase_akap.dart';
+import 'package:lmb_online/views/pengemudi/reguler/detail_ritase_akap.dart';
 import 'package:lmb_online/views/widget/detail_lmb_card.dart';
 import 'package:lmb_online/views/widget/scan_barcode.dart';
 import 'package:shared_preferences/shared_preferences.dart';

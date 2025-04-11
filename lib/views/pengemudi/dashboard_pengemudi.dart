@@ -1941,6 +1941,7 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),

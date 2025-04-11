@@ -14,7 +14,7 @@ import 'package:lmb_online/services/lmb/put_lmb_ritase.dart';
 import 'package:lmb_online/services/lmb/validation.dart';
 import 'package:lmb_online/services/operasi/reguler_komersil/get_komersil_total.dart';
 import 'package:lmb_online/views/pengemudi/cek_tiket.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/detail_ritase.dart';
+import 'package:lmb_online/views/pengemudi/reguler/detail_ritase.dart';
 import 'package:lmb_online/views/widget/detail_lmb_card.dart';
 import 'package:lmb_online/views/widget/scan_barcode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -3050,6 +3050,16 @@ class _TiketPmState extends State<TiketPm> {
                 ),
               ),
               // Aktifitas Ritase
+              //  AktifitasRitaseCard(
+              //   ritase: '$_ritase',
+              //   statusRitase: '$_statusRitase',
+              //   kmAwalValue: '$_kmAwalValue',
+              //   kmAkhirValue: '$_kmAkhirValue',
+              //   mulaiRitase: () => _showDialogMulaiRitase(context),
+              //   akhiriRitase: () => _showDialogAkhiriRitase(context),
+              //   riwayatRitase: () => _showDialogRiwayatRitase(context),
+              //   getLmbRitaseList: _handleGetLmbRitaseList,
+              // ),
               Card(
                 margin: const EdgeInsets.all(10),
                 shape: RoundedRectangleBorder(

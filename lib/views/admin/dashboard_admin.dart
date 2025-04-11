@@ -1270,6 +1270,7 @@ class _DashboardAdminState extends State<DashboardAdmin> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
