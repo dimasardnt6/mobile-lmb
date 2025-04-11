@@ -9,9 +9,7 @@ import 'package:lmb_online/views/login_screen.dart';
 import 'package:lmb_online/views/widget/header_dashboard_card.dart';
 import 'package:lmb_online/views/widget/scan_barcode.dart';
 import 'package:lmb_online/views/ppa/detail_laporan_validasi.dart';
-import 'package:lmb_online/views/ppa/lmb_akap_ppa.dart';
-import 'package:lmb_online/views/ppa/lmb_manual_reguler_ppa.dart';
-import 'package:lmb_online/views/ppa/lmb_pemadu_moda_ppa.dart';
+import 'package:lmb_online/views/widget/tab_bar_detail_lmb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardPpa extends StatefulWidget {
@@ -107,6 +105,7 @@ class _DashboardPpaState extends State<DashboardPpa> {
     if (response.code == 200) {
       setState(() {
         _listLmbAdmin = response.data!;
+        print('PRINT LMB ADMIN $_listLmbAdmin');
       });
     } else {
       Navigator.pop(context);
@@ -155,54 +154,54 @@ class _DashboardPpaState extends State<DashboardPpa> {
     }
   }
 
-  void _handleDetailLmb(GetLmbAdminData data) {
-    if (data.tipe_lmb_online == "1" && data.id_segment_transaksi == "2") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LmbPemaduModaPpa(lmbData: data),
-        ),
-      ).then((refresh) {
-        if (refresh == true) {
-          _initData();
-        }
-      });
-    } else if (data.tipe_lmb_online == "1" &&
-        data.id_segment_transaksi == "1") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LmbAkapPpa(lmbData: data)),
-      ).then((refresh) {
-        if (refresh == true) {
-          _initData();
-        }
-      });
-    } else if (data.tipe_lmb_online == "0") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LmbManualRegulerPpa(lmbData: data),
-        ),
-      );
-      // } else if (data.tipe_lmb_online == "2") {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => DetailLmbInputByKm(lmbData: data),
-      //     ),
-      //   );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            "Tipe LMB tidak dikenali",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      );
-    }
-  }
+  // void _handleDetailLmb(GetLmbAdminData data) {
+  //   if (data.tipe_lmb_online == "1" && data.id_segment_transaksi == "2") {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => LmbPemaduModaPpa(lmbData: data),
+  //       ),
+  //     ).then((refresh) {
+  //       if (refresh == true) {
+  //         _initData();
+  //       }
+  //     });
+  //   } else if (data.tipe_lmb_online == "1" &&
+  //       data.id_segment_transaksi == "1") {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => LmbAkapPpa(lmbData: data)),
+  //     ).then((refresh) {
+  //       if (refresh == true) {
+  //         _initData();
+  //       }
+  //     });
+  //   } else if (data.tipe_lmb_online == "0") {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => LmbManualRegulerPpa(lmbData: data),
+  //       ),
+  //     );
+  //     // } else if (data.tipe_lmb_online == "2") {
+  //     //   Navigator.push(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //       builder: (context) => DetailLmbInputByKm(lmbData: data),
+  //     //     ),
+  //     //   );
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         backgroundColor: Colors.red,
+  //         content: Text(
+  //           "Tipe LMB tidak dikenali",
+  //           style: TextStyle(color: Colors.white),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 
   void _showLogoutConfirmationDialog(BuildContext context) {
     showDialog(
@@ -691,18 +690,19 @@ class _DashboardPpaState extends State<DashboardPpa> {
                             ),
                             child: GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder:
-                                //         (context) => DetailLmbAkap(lmbData: data),
-                                //   ),
-                                // ).then((refresh) {
-                                //   if (refresh == true) {
-                                //     _initData();
-                                //   }
-                                // });
-                                _handleDetailLmb(data);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) =>
+                                            TabBarDetailLmb(lmbData: data),
+                                  ),
+                                ).then((refresh) {
+                                  if (refresh == true) {
+                                    _initData();
+                                  }
+                                });
+                                // _handleDetailLmb(data);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,

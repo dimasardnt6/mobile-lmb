@@ -86,7 +86,6 @@ class _InputByKmState extends State<InputByKm> {
   String _selectedNmTrayek = '';
   int _ritaseValue = 1;
   double _kmOperasionalValue = 1;
-  String _searchValue = '';
 
   String? _inputTrayekValidation;
   String? _inputKmOperasionalValidation;
@@ -585,7 +584,6 @@ class _InputByKmState extends State<InputByKm> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _searchValue = '';
                                   _searchController.clear();
                                   _isSearchPressed = false;
                                   _filteredTrayek = [];
@@ -663,7 +661,6 @@ class _InputByKmState extends State<InputByKm> {
 
                                     setState(() {
                                       _isSearchPressed = true;
-                                      _searchValue = query;
 
                                       _lisTrayekBkoData = bkoData;
                                       filterTrayekBko(query);
@@ -1028,7 +1025,6 @@ class _InputByKmState extends State<InputByKm> {
                                         _inputKmValidation = "";
                                         _kmAwalValue = "";
                                         _kmAwalController.clear();
-                                        _searchValue = '';
                                       });
                                     },
                                     style: ElevatedButton.styleFrom(

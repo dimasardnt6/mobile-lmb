@@ -94,8 +94,6 @@ class _TiketAkapState extends State<TiketAkap> {
   String _kmAkhirEditValue = "";
   // Edit Riwayat RITASE
 
-  String? _verifikasi = '0';
-
   @override
   void initState() {
     super.initState();
@@ -2288,11 +2286,7 @@ class _TiketAkapState extends State<TiketAkap> {
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () async {
-                                await _handleDeleteManifest(
-                                  bis!,
-                                  ritase!,
-                                  _verifikasi = "1",
-                                );
+                                await _handleDeleteManifest(bis!, ritase!, "0");
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
@@ -3703,7 +3697,7 @@ class _TiketAkapState extends State<TiketAkap> {
                                                         item.bis,
                                                         item.ritase,
                                                         item.active,
-                                                        _verifikasi = "0",
+                                                        "0",
                                                       );
                                                       print(
                                                         'Hapus Manifest ${item.bis} - ${item.ritase} - ${item.active}}',

@@ -190,16 +190,9 @@ class _InputBebanState extends State<InputBeban> {
         setState(() {
           _listBebanData = response.data!;
         });
-      } else {
-        print('Error: ${response.message}');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Terjadi kesalahan saat mengambil data Reguler"),
-          backgroundColor: Colors.red,
-        ),
-      );
+      print('Error');
     }
   }
 

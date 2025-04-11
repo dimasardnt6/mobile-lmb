@@ -86,7 +86,6 @@ class _ManualKmState extends State<ManualKm> {
   String _selectedNmTrayek = '';
   int _ritaseValue = 1;
   double _kmOperasionalValue = 1;
-  String _searchValue = '';
 
   String? _inputTrayekValidation;
   String? _inputKmOperasionalValidation;
@@ -608,7 +607,6 @@ class _ManualKmState extends State<ManualKm> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _searchValue = '';
                                   _searchController.clear();
                                   _isSearchPressed = false;
                                   _filteredTrayek = [];
@@ -686,7 +684,6 @@ class _ManualKmState extends State<ManualKm> {
 
                                     setState(() {
                                       _isSearchPressed = true;
-                                      _searchValue = query;
 
                                       _lisTrayekBkoData = bkoData;
                                       filterTrayekBko(query);
@@ -1051,7 +1048,6 @@ class _ManualKmState extends State<ManualKm> {
                                         _inputKmValidation = "";
                                         _kmAwalValue = "";
                                         _kmAwalController.clear();
-                                        _searchValue = '';
                                       });
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -2434,33 +2430,6 @@ class _ManualKmState extends State<ManualKm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 242, 248, 255),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF1A447F),
-        title: const Text(
-          'INPUT REGULER',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.white),
-            onPressed: () {
-              _initData();
-            },
-          ),
-        ],
-      ),
       body: RefreshIndicator(
         onRefresh: () async {
           _initData();

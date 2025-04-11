@@ -12,11 +12,7 @@ import 'package:lmb_online/views/login_screen.dart';
 import 'package:lmb_online/services/auth/auth_controller.dart';
 import 'package:lmb_online/views/pengemudi/cek_tiket.dart';
 import 'package:lmb_online/views/pengemudi/laporan_lmb.dart';
-import 'package:lmb_online/views/pengemudi/lmb/lmb_akap.dart';
-import 'package:lmb_online/views/pengemudi/lmb/lmb_input_by_km.dart';
-import 'package:lmb_online/views/pengemudi/lmb/lmb_manual_reguler.dart';
-import 'package:lmb_online/views/pengemudi/lmb/lmb_pemadu_moda.dart';
-import 'package:lmb_online/views/pengemudi/lmb/reguler/manual_km.dart';
+import 'package:lmb_online/views/widget/tab_bar_detail_lmb.dart';
 import 'package:lmb_online/views/pengemudi/pemeriksaan_keselamatan.dart';
 import 'package:lmb_online/views/widget/header_dashboard_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -193,60 +189,6 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
       }
     } else {
       await _handleLogout();
-    }
-  }
-
-  void _handleDetailLmb(LmbDriverNewData item) {
-    if (item.tipe_lmb_online == "1" && item.id_segment_transaksi == "2") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LmbPemaduModa(lmbDriverNew: item),
-        ),
-      ).then((refresh) {
-        if (refresh == true) {
-          _initData();
-        }
-      });
-    } else if (item.tipe_lmb_online == "1" &&
-        item.id_segment_transaksi == "1") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LmbAkap(lmbDriverNew: item)),
-      ).then((refresh) {
-        if (refresh == true) {
-          _initData();
-        }
-      });
-    } else if (item.tipe_lmb_online == "0") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LmbManualReguler(lmbDriverNew: item),
-        ),
-      );
-    } else if (item.tipe_lmb_online == "2") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LmbInputByKm(lmbDriverNew: item),
-        ),
-      );
-    } else if (item.tipe_lmb_online == "3") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ManualKm(lmbDriverNew: item)),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(
-            "Tipe LMB tidak dikenali",
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      );
     }
   }
 
@@ -1089,7 +1031,20 @@ class _DashboardPengemudiState extends State<DashboardPengemudi> {
                                             } else if (_verifikasiPemeriksaanData!
                                                     .code ==
                                                 200) {
-                                              _handleDetailLmb(item);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (context) =>
+                                                          TabBarDetailLmb(
+                                                            lmbDriverNew: item,
+                                                          ),
+                                                ),
+                                              ).then((refresh) {
+                                                if (refresh == true) {
+                                                  _initData();
+                                                }
+                                              });
                                             } else {
                                               ScaffoldMessenger.of(
                                                 context,

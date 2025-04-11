@@ -78,8 +78,6 @@ class _DetailLmbAkapState extends State<DetailLmbAkap> {
   String? _inputCatatanVerifikasi = '';
   // Input Jumlah Penumpang
 
-  String? _verifikasi = '0';
-
   @override
   void initState() {
     super.initState();
@@ -1996,11 +1994,7 @@ class _DetailLmbAkapState extends State<DetailLmbAkap> {
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () async {
-                                await _handleDeleteManifest(
-                                  bis!,
-                                  ritase!,
-                                  _verifikasi = "1",
-                                );
+                                await _handleDeleteManifest(bis!, ritase!, "0");
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
@@ -2761,7 +2755,7 @@ class _DetailLmbAkapState extends State<DetailLmbAkap> {
                                                         item.bis,
                                                         item.ritase,
                                                         item.active,
-                                                        _verifikasi = "0",
+                                                        "0",
                                                       );
                                                       print(
                                                         'Hapus Manifest ${item.bis} - ${item.ritase} - ${item.active}}',
